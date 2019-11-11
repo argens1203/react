@@ -1,35 +1,22 @@
 import React from 'react';
-import {configureStore, createSlice} from 'redux-starter-kit';
-import {connect, Provider} from 'react-redux';
+import {configureStore} from 'redux-starter-kit';
 import withProvider from "./withProvider";
+import counterReducer, {increment, decrement} from "./redux/counterSlice";
 
-const counterSlice = createSlice ({
-    name: 'counter',
-    initialState: 0,
-    reducers: {
-        increment: (state, action) => state + action.payload.amount,
-        decrement: state => state - 1
-    }
-});
-const store = configureStore({reducer: counterSlice.reducer});
-const stateToProps = (state: Number) => {
-    return {
-        counter: state
-    }
-};
+const store = configureStore({reducer: counterReducer});
+const stateToProps = (state: number) => ({ counter: state });
 
 type CounterProps = {
-    counter: Number
+    counter: number
 }
 const Counter: React.FC<CounterProps> = ({counter}) => {
     return (
         <div>
             {counter}
             <button onClick={()=> {
-                store.dispatch (counterSlice.actions.increment({amount: 2}));
-                console.log(counterSlice.actions.increment);
+                store.dispatch (increment({amount: 2}));
             }}>Increment</button>
-            <button onClick={()=> store.dispatch (counterSlice.actions.decrement())}>Decrement</button>
+            <button onClick={()=> store.dispatch (decrement())}>Decrement</button>
         </div>
     );
 };
