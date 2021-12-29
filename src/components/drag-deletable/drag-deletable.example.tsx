@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { arrayToObj, getTruthfulIndexes } from '../../utils/index.ts';
+import { arrayToObj, getTruthfulIndexes } from '../../utils';
 
 import { DragDeletable } from './drag-deletable-with-loading';
 
